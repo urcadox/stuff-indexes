@@ -1,17 +1,32 @@
 var Main = {
   init: function() {
-    var ipp = document.getElementsByTagName("ul").item().dataset.itemsperpage;
+    var ipp = document.getElementsByTagName("ul").item().dataset.itemsperpage,
+        that = this;
 
-    var li = document.getElementsByClassName("content").item().getElementsByTagName("li");
-    for(var i = 0; i < ipp && i < li.length; i++) {
-      var item = li.item(i);
-      var img = item.getElementsByTagName("img").item();
-      img.setAttribute("src", img.dataset.src);
-      item.classList.remove("hidden");
+    var imgs = document.getElementsByClassName("content").item().getElementsByTagName("img");
+    document.getElementsByTagName("input").item().onkeyup = function(e) {
+      if(this.value.length < 3) {
+        that.initialDisplay(ipp);
+      } else {
+        document.getElementsByClassName("prev").item().classList.add("disabled");
+        document.getElementsByClassName("next").item().classList.add("disabled");
+        var li = document.getElementsByClassName("content").item().getElementsByTagName("li");
+        for(var i = 0; i < li.length; i++) {
+          li.item(i).classList.add("hidden");
+        }
+        for(var i = 0; i < imgs.length; i++) {
+          var img = imgs.item(i);
+          if(img.dataset.src.indexOf(this.value) != -1) {
+            img.parentNode.parentNode.classList.remove("hidden");
+            if(!img.hasAttribute("src")) {
+              img.setAttribute("src", img.dataset.src);
+            }
+          }
+        }
+      }
     }
-    if(li.length <= ipp) {
-      document.getElementsByClassName("next").item().classList.add("disabled");
-    }
+
+    this.initialDisplay(ipp);
 
     document.getElementsByClassName("prev").item().onclick = function(e) {
       e.preventDefault();
@@ -28,7 +43,9 @@ var Main = {
           item.classList.add("hidden");
         } else if(lastDisplayedIndex != -1 && newlyDisplayedItems < ipp) {
           item.classList.remove("hidden");
-          img.setAttribute("src", img.dataset.src);
+          if(!img.hasAttribute("src")) {
+            img.setAttribute("src", img.dataset.src);
+          }
           newlyDisplayedItems++;
           if(i == 0) {
             this.classList.add("disabled");
@@ -52,7 +69,9 @@ var Main = {
           item.classList.add("hidden");
         } else if(lastDisplayedIndex != -1 && newlyDisplayedItems < ipp) {
           item.classList.remove("hidden");
-          img.setAttribute("src", img.dataset.src);
+          if(!img.hasAttribute("src")) {
+            img.setAttribute("src", img.dataset.src);
+          }
           newlyDisplayedItems++;
           if(i == li.length - 1) {
             this.classList.add("disabled");
@@ -60,6 +79,26 @@ var Main = {
         }
       }
       document.getElementsByClassName("prev").item().classList.remove("disabled");
+    }
+  },
+
+  initialDisplay: function(ipp) {
+    var li = document.getElementsByClassName("content").item().getElementsByTagName("li");
+    for(var i = 0; i < li.length; i++) {
+      li.item(i).classList.add("hidden");
+    }
+    for(var i = 0; i < ipp && i < li.length; i++) {
+      var item = li.item(i);
+      var img = item.getElementsByTagName("img").item();
+      if(!img.hasAttribute("src")) {
+        img.setAttribute("src", img.dataset.src);
+      }
+      item.classList.remove("hidden");
+    }
+    if(li.length <= ipp) {
+      document.getElementsByClassName("next").item().classList.add("disabled");
+    } else {
+      document.getElementsByClassName("next").item().classList.remove("disabled");
     }
   }
 };
