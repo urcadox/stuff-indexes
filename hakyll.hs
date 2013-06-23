@@ -14,6 +14,11 @@ main = hakyll $ do
         route idRoute
         compile compressCssCompiler
 
+    -- Copy js
+    match "js/*" $ do
+        route idRoute
+        compile copyFileCompiler
+
     -- Copy images
     match "images/*" $ do
         route   idRoute
@@ -54,9 +59,11 @@ itemCtx = mconcat
 allImagesCtx :: Context String
 allImagesCtx =
     constField "title" "Images" `mappend`
+    constField "itemsperpage" "10" `mappend`
     defaultContext
 
 allGifsCtx :: Context String
 allGifsCtx =
     constField "title" "Gifs" `mappend`
+    constField "itemsperpage" "5" `mappend`
     defaultContext

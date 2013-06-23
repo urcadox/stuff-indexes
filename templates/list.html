@@ -3,16 +3,22 @@
 <head>
   <title>$title$</title>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" type="text/css" href="/css/default.css" />
 </head>
 <body>
     <header>
       <h1>$title$</h1>
     </header>
+    <section class="search">
+      <input type="text" placeholder="Search…" />
+    </section>
     <section class="content" role="main">
-      <ul>
+      <a href="#" class="button prev disabled">Prev</a>
+      <ul data-itemsperpage="$itemsperpage$">
         $body$
       </ul>
+      <a href="#" class="button next">Next</a>
     </section>
     <footer>
         <p class="links">
@@ -21,5 +27,6 @@
           <a href="http://github.com/urcadox/stuff-indexes">Source code</a>
         </p>
     </footer>
+    <script type="text/javascript" src="/js/main.js"></script>
 </body>
 </html>
