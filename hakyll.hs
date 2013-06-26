@@ -20,7 +20,7 @@ main = hakyll $ do
         compile copyFileCompiler
 
     -- Copy images
-    match (fromList ["images/*.jpg", "images/*.png"]) $ do
+    match ("images/*.jpg" .||. "images/*.png") $ do
         route   idRoute
         compile copyFileCompiler
 
@@ -33,7 +33,7 @@ main = hakyll $ do
     create ["images/index.html"] $ do
         route idRoute
         compile $ do
-            images <- loadAll (fromList ["images/*.jpg", "images/*.png"])
+            images <- loadAll ("images/*.jpg" .||. "images/*.png")
             itemTpl <- loadBody "templates/item.html"
             list <- applyTemplateList itemTpl itemCtx images
             makeItem list
