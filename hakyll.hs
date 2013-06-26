@@ -20,30 +20,30 @@ main = hakyll $ do
         compile copyFileCompiler
 
     -- Copy images
-    match "images/*" $ do
+    match (fromList ["images/*.jpg", "images/*.png"]) $ do
         route   idRoute
         compile copyFileCompiler
 
     -- Copy gifs
-    match "gifs/*" $ do
+    match "gifs/*.gif" $ do
         route   idRoute
         compile copyFileCompiler
 
     -- Render images index
-    create ["images.html"] $ do
+    create ["images/index.html"] $ do
         route idRoute
         compile $ do
-            images <- loadAll "images/*"
+            images <- loadAll (fromList ["images/*.jpg", "images/*.png"])
             itemTpl <- loadBody "templates/item.html"
             list <- applyTemplateList itemTpl itemCtx images
             makeItem list
                 >>= loadAndApplyTemplate "templates/list.html" allImagesCtx
 
     -- Render gifs index
-    create ["gifs.html"] $ do
+    create ["gifs/index.html"] $ do
         route idRoute
         compile $ do
-            gifs <- loadAll "gifs/*"
+            gifs <- loadAll "gifs/*.gif"
             itemTpl <- loadBody "templates/item.html"
             list <- applyTemplateList itemTpl itemCtx gifs
             makeItem list
