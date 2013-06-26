@@ -18,9 +18,9 @@ var Main = {
           var img = imgs.item(i);
           if(img.dataset.src.indexOf(this.value) != -1) {
             img.parentNode.parentNode.classList.remove("hidden");
-            if(!img.hasAttribute("src")) {
-              img.setAttribute("src", img.dataset.src);
-            }
+            img.setAttribute("src", img.dataset.src);
+          } else {
+            img.setAttribute("src", "#");
           }
         }
       }
@@ -41,11 +41,10 @@ var Main = {
         if(!item.classList.contains("hidden")) {
           lastDisplayedIndex = i;
           item.classList.add("hidden");
+          img.setAttribute("src", "#");
         } else if(lastDisplayedIndex != -1 && newlyDisplayedItems < ipp) {
           item.classList.remove("hidden");
-          if(!img.hasAttribute("src")) {
-            img.setAttribute("src", img.dataset.src);
-          }
+          img.setAttribute("src", img.dataset.src);
           newlyDisplayedItems++;
           if(i == 0) {
             this.classList.add("disabled");
@@ -67,11 +66,10 @@ var Main = {
         if(!item.classList.contains("hidden")) {
           lastDisplayedIndex = i;
           item.classList.add("hidden");
+          img.setAttribute("src", "#");
         } else if(lastDisplayedIndex != -1 && newlyDisplayedItems < ipp) {
           item.classList.remove("hidden");
-          if(!img.hasAttribute("src")) {
-            img.setAttribute("src", img.dataset.src);
-          }
+          img.setAttribute("src", img.dataset.src);
           newlyDisplayedItems++;
           if(i == li.length - 1) {
             this.classList.add("disabled");
