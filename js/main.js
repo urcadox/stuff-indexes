@@ -88,7 +88,7 @@ var Main = {
     for(var i = 0; i < ipp && i < li.length; i++) {
       var item = li.item(i);
       var img = item.getElementsByTagName("img").item();
-      if(!img.hasAttribute("src")) {
+      if(!img.hasAttribute("src") || img.src.split("/").pop() == "#") {
         img.setAttribute("src", img.dataset.src);
       }
       item.classList.remove("hidden");
