@@ -16,7 +16,7 @@ var Main = {
         }
         for(var i = 0; i < imgs.length; i++) {
           var img = imgs.item(i);
-          if(img.dataset.src.indexOf(this.value) != -1) {
+          if(img.dataset.src.toLowerCase().indexOf(this.value.toLowerCase()) != -1) {
             img.parentNode.parentNode.classList.remove("hidden");
             img.setAttribute("src", img.dataset.src);
           } else {
