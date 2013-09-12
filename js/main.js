@@ -3,7 +3,7 @@ var Main = {
     var ipp = document.getElementsByTagName("ul").item().dataset.itemsperpage,
         that = this;
 
-    var imgs = document.getElementsByClassName("content").item().getElementsByTagName("img");
+    var imgs = document.getElementsByClassName("content").item(0).getElementsByTagName("img");
     document.getElementsByTagName("input").item().onkeyup = function(e) {
       if(this.value.length < 3) {
         that.initialDisplay(ipp);
