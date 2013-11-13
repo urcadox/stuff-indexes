@@ -37,7 +37,7 @@ main = hakyll $ do
             itemTpl <- loadBody "templates/item.html"
             list <- applyTemplateList itemTpl itemCtx images
             makeItem list
-                >>= loadAndApplyTemplate "templates/list.html" allImagesCtx
+                >>= loadAndApplyTemplate "templates/list.html" (allImagesCtx (show (length images)))
 
     -- Render gifs index
     create ["gifs/index.html"] $ do
@@ -47,7 +47,7 @@ main = hakyll $ do
             itemTpl <- loadBody "templates/item.html"
             list <- applyTemplateList itemTpl itemCtx gifs
             makeItem list
-                >>= loadAndApplyTemplate "templates/list.html" allGifsCtx
+                >>= loadAndApplyTemplate "templates/list.html" (allGifsCtx (show (length gifs)))
 
     -- Read templates
     match "templates/*" $ compile templateCompiler
@@ -56,14 +56,16 @@ itemCtx :: Context CopyFile
 itemCtx = mconcat
     [ urlField "url" ]
 
-allImagesCtx :: Context String
-allImagesCtx =
+allImagesCtx :: String -> Context String
+allImagesCtx nbImages =
     constField "title" "Images" `mappend`
     constField "itemsperpage" "10" `mappend`
+    constField "nbItems" nbImages `mappend`
     defaultContext
 
-allGifsCtx :: Context String
-allGifsCtx =
+allGifsCtx :: String -> Context String
+allGifsCtx nbGifs =
     constField "title" "Gifs" `mappend`
     constField "itemsperpage" "5" `mappend`
+    constField "nbItems" nbGifs `mappend`
     defaultContext

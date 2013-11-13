@@ -26,6 +26,14 @@ body > header h1 {
     margin: 1.3em 0;
 }
 
+h1 small {
+  position: absolute;
+  margin-left: 15px;
+  font-size: 0.3em;
+  font-weight: normal;
+  opacity: 0.3;
+}
+
 a {
     color: #A72929;
     text-decoration: none;
